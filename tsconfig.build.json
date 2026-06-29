@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "exclude": [
+    "node_modules",
+    "lib",
+    "cpp/build",
+    "__tests__",
+    "example",
+    "tools"
+  ]
+}

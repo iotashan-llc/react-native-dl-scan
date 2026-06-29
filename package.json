@@ -1,0 +1,151 @@
+{
+  "name": "react-native-dl-scan",
+  "version": "0.2.0",
+  "description": "React Native module for scanning US driver's licenses via PDF417 barcode and OCR",
+  "main": "./lib/module/index.js",
+  "types": "./lib/typescript/src/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "react-native": "./src/index.ts",
+      "types": "./lib/typescript/src/index.d.ts",
+      "default": "./lib/module/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "src",
+    "lib",
+    "ios",
+    "android",
+    "cpp",
+    "nitrogen",
+    "*.podspec",
+    "react-native.config.js",
+    "!ios/build",
+    "!android/build",
+    "!cpp/build",
+    "!**/__tests__",
+    "!**/__mocks__",
+    "!**/.*",
+    "models",
+    "docs",
+    "Package.swift",
+    "!cpp/tests",
+    "!cpp/eval",
+    "!android/src/test",
+    "!android/src/androidTest"
+  ],
+  "scripts": {
+    "typecheck": "tsc",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "clean": "del-cli lib",
+    "prepare": "bob build",
+    "test": "jest",
+    "test:ci": "jest --ci --coverage",
+    "test:cpp": "set -a; [ -f .env ] && . ./.env; set +a; cmake -S cpp -B cpp/build -DCMAKE_BUILD_TYPE=Debug && cmake --build cpp/build && ctest --test-dir cpp/build --output-on-failure",
+    "nitrogen": "nitrogen"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "driver-license",
+    "barcode",
+    "pdf417",
+    "ocr",
+    "scanner"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iotashan/react-native-dl-scan.git"
+  },
+  "author": "Shannon Hicks <shan@iotashan.com> (https://github.com/iotashan)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iotashan/react-native-dl-scan/issues"
+  },
+  "homepage": "https://github.com/iotashan/react-native-dl-scan#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.4.3",
+    "@commitlint/config-conventional": "^20.4.3",
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.22.0",
+    "@evilmartians/lefthook": "^1.5.0",
+    "@react-native/babel-preset": "0.81.5",
+    "@react-native/eslint-config": "^0.81.0",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^19.0.0",
+    "del-cli": "^5.1.0",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "jest": "^29.7.0",
+    "nitrogen": "^0.35.6",
+    "prettier": "^3.0.3",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-builder-bob": "^0.40.12",
+    "react-native-fast-tflite": "^3.0.0",
+    "react-native-nitro-image": "^0.14.0",
+    "react-native-nitro-modules": "^0.35.0",
+    "react-native-vision-camera": "^5.0.11",
+    "react-native-vision-camera-barcode-scanner": "^5.0.11",
+    "react-native-vision-camera-worklets": "^5.0.11",
+    "react-native-worklets": "^0.8.0",
+    "ts-jest": "^29.3.2",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.79.0",
+    "react-native-fast-tflite": "^3.0.0",
+    "react-native-nitro-image": "^0.14.0",
+    "react-native-nitro-modules": "^0.35.0",
+    "react-native-vision-camera": "^5.0.11",
+    "react-native-vision-camera-barcode-scanner": "^5.0.11",
+    "react-native-vision-camera-worklets": "^5.0.11",
+    "react-native-worklets": "^0.8.0"
+  },
+  "resolutions": {
+    "fast-uri": "^3.1.2",
+    "shell-quote": "^1.8.4"
+  },
+  "packageManager": "yarn@3.6.1",
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "create-react-native-library": {
+    "languages": "swift",
+    "type": "nitro-module",
+    "version": "0.51.0"
+  },
+  "react-native": "./src/index.ts",
+  "source": "./src/index.ts"
+}

@@ -1,0 +1,21 @@
+{
+  "fieldDetector": {
+    "model": "NanoDet-Plus-m",
+    "backbone": "ShuffleNetV2 1.0x + GhostPAN, GFL/DFL head (reg_max=7)",
+    "input": "416x416 NHWC RGB8 (BGR ImageNet mean/std applied in preprocess)",
+    "output": "[1,3598,62] anchor-major: 30 sigmoid class scores + 4x8 DFL logits",
+    "classes": 30,
+    "trainedOn": "IDNet (95490 train / 12055 val, COCO format)",
+    "metrics": {
+      "mAP@0.5:0.95": 0.967,
+      "AP@0.5": 0.9996,
+      "AP@0.75": 0.994
+    },
+    "license": "Apache-2.0",
+    "trainingFramework": "RangiLyu/nanodet (Apache-2.0)",
+    "exportedVia": "litert-torch (PyTorch -> LiteRT/TFLite), sigmoid baked into cls",
+    "file": "nanodet_field_416.tflite",
+    "sizeBytes": 4991168,
+    "note": "Replaces the former AGPL-ambiguous YOLOv8n detector. Loaded in JS via react-native-fast-tflite; consumers pass it to useLicenseScanner ocrModelSources."
+  }
+}
