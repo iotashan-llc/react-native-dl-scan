@@ -76,31 +76,32 @@ jobs:
           test -f android/src/main/AndroidManifest.xml
           test -f android/src/main/java/com/margelo/nitro/dlscan/HybridDLScanAndroid.kt
           test -f android/src/main/cpp/dlscan_jni_bridge.cpp
-          test -f android/src/main/assets/dl_scan_field_detector.tflite
+          test -f android/src/main/assets/docaligner_lcnet100.tflite
 
           echo "Android scripts present. Real build requires consumer-app context (deferred to follow-up)."
 
-  parity:
-    name: Field-detector parity smoke test (Core ML int8 vs TFLite int8)
-    runs-on: macos-latest
+  models:
+    name: Model artifact integrity
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install uv
+      - name: Verify shipped models match models/version.json
         run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Sync export-android env (torch + ultralytics + coremltools + tflite)
-        run: |
-          cd model-training/envs/export-android
-          uv sync --frozen
-
-      - name: Run parity smoke test
-        run: |
-          # The .pt baseline weights are gitignored under runs/ so CI uses
-          # --skip-pt; the .mlpackage + .tflite shipped in the repo are
-          # what consumers actually load at runtime, so this gate validates
-          # the production artifacts against the held-out fixture.
-          export YOLO_AUTOINSTALL=False
-          bash model-training/scripts/parity_check.sh --skip-pt
+          # Real numerical parity is validated at export time
+          # (model-training/nanodet/export_tflite/parity_check.py); CI only
+          # gates that the committed artifacts are present, in sync, and
+          # match the manifest.
+          node -e '
+            const fs = require("fs");
+            const v = JSON.parse(fs.readFileSync("models/version.json", "utf8"));
+            const f = "models/" + v.fieldDetector.file;
+            const size = fs.statSync(f).size;
+            if (size !== v.fieldDetector.sizeBytes) {
+              console.error(`size mismatch: ${f} is ${size} bytes, version.json says ${v.fieldDetector.sizeBytes}`);
+              process.exit(1);
+            }
+            console.log(`${f} OK (${size} bytes)`);
+          '
+          cmp models/nanodet_field_416.tflite example/assets/nanodet_field_416.tflite
+          test -f android/src/main/assets/docaligner_lcnet100.tflite
