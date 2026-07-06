@@ -3181,7 +3181,7 @@ __metadata:
     react-native-svg: 15.15.5
     react-native-vision-camera: 5.0.11
     react-native-vision-camera-barcode-scanner: 5.0.11
-    react-native-vision-camera-worklets: 5.0.11
+    react-native-vision-camera-worklets: 5.1.0
     react-native-worklets: ^0.8.3
     typescript: ~5.9.2
   languageName: unknown
@@ -5515,16 +5515,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vision-camera-worklets@npm:5.0.11":
-  version: 5.0.11
-  resolution: "react-native-vision-camera-worklets@npm:5.0.11"
+"react-native-vision-camera-worklets@npm:5.1.0":
+  version: 5.1.0
+  resolution: "react-native-vision-camera-worklets@npm:5.1.0"
   peerDependencies:
     react: "*"
     react-native: "*"
     react-native-nitro-modules: "*"
     react-native-vision-camera: "*"
     react-native-worklets: "*"
-  checksum: cc4d20540e7e609c189fb42deb4aa4e19d270f474b0076a8993809c609d5e847e4ef7ff7c6f8f03efce18c9ec0e5c17a3fd079c112e097f3065af737434be744
+  checksum: f8e00c5e09a109cf87956484dbe3c12ccf4e94fb2aac7f31aa5accb4826231e278155f376907341266b3e91a6c72ee0723fe766bc790a751b9f895c5269cbfae
   languageName: node
   linkType: hard
 
