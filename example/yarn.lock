@@ -3177,7 +3177,7 @@ __metadata:
     react-native-nitro-image: ^0.14.0
     react-native-nitro-modules: ^0.35.0
     react-native-reanimated: ~4.1.1
-    react-native-safe-area-context: ~5.6.0
+    react-native-safe-area-context: ~5.8.0
     react-native-svg: 15.12.1
     react-native-vision-camera: 5.0.11
     react-native-vision-camera-barcode-scanner: 5.0.11
@@ -5480,13 +5480,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:~5.6.0":
-  version: 5.6.2
-  resolution: "react-native-safe-area-context@npm:5.6.2"
+"react-native-safe-area-context@npm:~5.8.0":
+  version: 5.8.0
+  resolution: "react-native-safe-area-context@npm:5.8.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 7b15cdd07df4f3650cf443fb322ee2d51b3ab45c652789cbea4cb48a8e6fd2b66e2be01e9f63e614ceaf28d9d228af681ca8857b2ed8dabe48f23964076d40c3
+  checksum: 082bb1cb7e9609f1b5b04bc4ee04d71c32637bbaf4f065a1f15ec693100c855f63de0d9ec3d6bb972c39d7029c1952d1bceec5ba2167851f8e47e8dfd05d983e
   languageName: node
   linkType: hard
 
