@@ -70,7 +70,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.4.3",
+    "@commitlint/cli": "^21.2.0",
     "@commitlint/config-conventional": "^20.4.3",
     "@eslint/compat": "^1.2.7",
     "@eslint/eslintrc": "^3.3.0",
