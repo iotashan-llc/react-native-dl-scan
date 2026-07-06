@@ -25,7 +25,7 @@ jobs:
 
   cpp:
     name: C++ shared core (GoogleTest)
-    runs-on: macos-latest
+    runs-on: [self-hosted, macOS, ARM64, xcode-26]
     steps:
       - uses: actions/checkout@v4
       - run: cmake -S cpp -B cpp/build -DCMAKE_BUILD_TYPE=Debug
@@ -34,7 +34,7 @@ jobs:
 
   ios:
     name: iOS — SPM + Pod compat
-    runs-on: macos-latest
+    runs-on: [self-hosted, macOS, ARM64, xcode-26]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
