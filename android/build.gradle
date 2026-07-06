@@ -148,7 +148,7 @@ dependencies {
   // so those don't transit. HybridDLScanAndroid.kt directly references
   // ImageProxy + @ExperimentalGetImage, so declare camera-core here. Match
   // VisionCamera's pinned camerax_version to keep versions aligned.
-  implementation "androidx.camera:camera-core:1.7.0-alpha01"
+  implementation "androidx.camera:camera-core:1.7.0-alpha02"
   implementation "com.google.mlkit:text-recognition:16.0.1"
   implementation "com.google.mlkit:face-detection:16.1.7"
 
