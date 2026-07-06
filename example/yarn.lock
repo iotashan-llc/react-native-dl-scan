@@ -3179,7 +3179,7 @@ __metadata:
     "@react-native-async-storage/async-storage": 2.2.0
     "@types/react": ~19.1.0
     expo: ~57.0.2
-    expo-blur: ~15.0.8
+    expo-blur: ~57.0.0
     expo-build-properties: ~1.0.10
     expo-device: ~8.0.10
     expo-file-system: ~19.0.22
@@ -3218,14 +3218,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-blur@npm:~15.0.8":
-  version: 15.0.8
-  resolution: "expo-blur@npm:15.0.8"
+"expo-blur@npm:~57.0.0":
+  version: 57.0.0
+  resolution: "expo-blur@npm:57.0.0"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 3ddffcfb65692d52f63abf7bff247fcc85ead491f148e4b28aac02c0c04cb6b28f03933906f34c783a5d5ea41fde5959dabf9bee53dac54328fb70662cfca72e
+  checksum: 89c90db86104fdac9094c2bf3a0922dc82edda345b817f67dea23da3f1dc43192eebfa030a832f2f06e04ca5dbca0c4bc01b0e4b60810389100443e072107e63
   languageName: node
   linkType: hard
 
