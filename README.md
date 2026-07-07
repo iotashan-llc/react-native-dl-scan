@@ -97,16 +97,20 @@ The TypeScript / native bridge code itself is small (< 1 MB). For most apps the 
 
 ## Peer Dependencies
 
-Install all of these in your app's `package.json`:
+This library declares all of these as `peerDependencies` — install every one in
+your app's `package.json`. The example versions below are the coherent set for
+**React Native 0.81** (the versions the example app ships and is verified
+against). `react-native-reanimated` is **not** required by this library.
 
 ```sh
 yarn add \
   react-native-vision-camera@^5.0.0 \
   react-native-vision-camera-barcode-scanner@^5.0.0 \
   react-native-vision-camera-worklets@^5.0.0 \
-  react-native-worklets@^0.8.0 \
-  react-native-nitro-modules@^0.35.0 \
-  react-native-nitro-image@^0.14.0
+  react-native-worklets@^0.8.3 \
+  react-native-nitro-modules@^0.36.0 \
+  react-native-nitro-image@^0.15.0 \
+  react-native-fast-tflite@^3.0.0
 ```
 
 Or with npm:
@@ -116,12 +120,23 @@ npm install \
   react-native-vision-camera@^5.0.0 \
   react-native-vision-camera-barcode-scanner@^5.0.0 \
   react-native-vision-camera-worklets@^5.0.0 \
-  react-native-worklets@^0.8.0 \
-  react-native-nitro-modules@^0.35.0 \
-  react-native-nitro-image@^0.14.0
+  react-native-worklets@^0.8.3 \
+  react-native-nitro-modules@^0.36.0 \
+  react-native-nitro-image@^0.15.0 \
+  react-native-fast-tflite@^3.0.0
 ```
 
 `react-native-nitro-image` is transitively required by Vision Camera v5.
+`react-native-fast-tflite` runs the bundled NanoDet field detector in `'ocr'`
+mode.
+
+> **`react-native-worklets` version must match your React Native.** Worklets
+> `0.8.x` pairs with **RN 0.79–0.82**; worklets `0.10.x` requires **RN 0.83+**.
+> This library's peer range is `react-native-worklets: ">=0.8.3"`, so it is
+> installable across its whole supported RN range (0.79+) — pick the worklets
+> version that matches your RN, not the newest one. Installing worklets `0.10.x`
+> on RN ≤ 0.82 is an unsatisfiable peer set (that combination is what forces
+> `npm install --legacy-peer-deps`).
 
 ## Installation
 
@@ -130,6 +145,27 @@ npm install \
 ```sh
 yarn add react-native-dl-scan
 ```
+
+### Metro config — required for `'ocr'` mode
+
+`'ocr'` mode loads the bundled NanoDet field detector via
+`require('react-native-dl-scan/models/nanodet_field_416.tflite')`. Metro does not
+bundle `.tflite` files by default, so add `tflite` to `resolver.assetExts` in
+your app's `metro.config.js`:
+
+```js
+// metro.config.js
+const { getDefaultConfig } = require('@react-native/metro-config');
+
+const config = getDefaultConfig(__dirname);
+config.resolver.assetExts.push('tflite');
+
+module.exports = config;
+```
+
+Without this, `require()` of the model throws at runtime and Metro warns that the
+path is "not listed in exports". (Barcode-only apps that never use `'ocr'` mode
+can skip this step.)
 
 ### iOS — primary path: Swift Package Manager (RN 0.84+)
 
@@ -142,11 +178,28 @@ Alternatively, the package is added automatically through your app workspace's `
 
 ### iOS — legacy path: CocoaPods (RN ≤ 0.83 or pre-SPM migration)
 
+Set the iOS deployment target to **16.0** in your `ios/Podfile` before running
+`pod install` — the `DLScan.podspec` floor is iOS 16.0, and the RN 0.81 app
+template defaults the Podfile to `15.1`, which makes `pod install` fail:
+
+```ruby
+# ios/Podfile
+platform :ios, '16.0'
+```
+
 ```sh
 cd ios && pod install
 ```
 
 > **CocoaPods sunset notice:** The `DLScan.podspec` is retained as a compatibility shim through **2026-12-02**, when CocoaPods Trunk goes permanently read-only. Plan your migration to SPM before that date — after it, only SPM is supported.
+
+> **Apple Silicon simulator — `EXCLUDED_ARCHS=arm64`.** On Android-barcode builds
+> this is irrelevant, but `react-native-vision-camera-barcode-scanner` pulls in
+> Google MLKit on iOS, whose distributed binary lacks an `arm64` simulator slice.
+> Building for the iOS Simulator on an Apple Silicon Mac therefore requires
+> `EXCLUDED_ARCHS[sdk=iphonesimulator*] = arm64` (build for a physical device, or
+> Rosetta, to avoid it). This is an upstream MLKit limitation, not a bug in this
+> library.
 
 ### Android
 
