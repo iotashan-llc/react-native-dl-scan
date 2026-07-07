@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Security vulnerability
-    url: https://github.com/iotashan/react-native-dl-scan/security/policy
+    url: https://github.com/iotashan-llc/react-native-dl-scan/security/policy
     about: Please report security vulnerabilities privately per SECURITY.md, not via a public issue.
   - name: Question or discussion
-    url: https://github.com/iotashan/react-native-dl-scan/discussions
+    url: https://github.com/iotashan-llc/react-native-dl-scan/discussions
     about: For general questions, ideas, or "is this library a good fit for me?" — start a discussion.

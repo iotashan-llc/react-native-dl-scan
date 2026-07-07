@@ -79,7 +79,7 @@ starting.
 ### Step 1: Clone the repository at the trained-model commit
 
 ```bash
-git clone https://github.com/iotashan/react-native-dl-scan.git
+git clone https://github.com/iotashan-llc/react-native-dl-scan.git
 cd react-native-dl-scan
 
 # Pin to the exact commit used for the shipped models

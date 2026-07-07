@@ -6,7 +6,7 @@ fastest way to get traction on a change is to open an issue first so we can
 agree on the shape of it before code is written.
 
 The issue tracker lives at
-<https://github.com/iotashan/react-native-dl-scan/issues>.
+<https://github.com/iotashan-llc/react-native-dl-scan/issues>.
 
 ## Reporting bugs
 
@@ -47,7 +47,7 @@ PR.
 ### Clone and install
 
 ```bash
-git clone https://github.com/iotashan/react-native-dl-scan.git
+git clone https://github.com/iotashan-llc/react-native-dl-scan.git
 cd react-native-dl-scan
 yarn install
 ```

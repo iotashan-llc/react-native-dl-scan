@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   # and the Vision document-segmentation + text-recognition APIs the OCR path
   # relies on.
   s.platforms    = { :ios => "16.0" }
-  s.source       = { :git => "https://github.com/iotashan/react-native-dl-scan.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/iotashan-llc/react-native-dl-scan.git", :tag => "#{s.version}" }
 
   # Hand-written iOS + C++ sources. Nitro-generated glue is appended below by
   # `add_nitrogen_files(s)`, which also partitions public/private headers so
