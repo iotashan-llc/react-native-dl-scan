@@ -12,7 +12,7 @@ jobs:
       matrix:
         node: ['20']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
@@ -27,7 +27,7 @@ jobs:
     name: C++ shared core (GoogleTest)
     runs-on: [self-hosted, macOS, ARM64, xcode-26]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: cmake -S cpp -B cpp/build -DCMAKE_BUILD_TYPE=Debug
       - run: cmake --build cpp/build
       - run: ctest --test-dir cpp/build --output-on-failure
@@ -36,7 +36,7 @@ jobs:
     name: iOS — SPM + Pod compat
     runs-on: [self-hosted, macOS, ARM64, xcode-26]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -51,7 +51,7 @@ jobs:
     name: Android — script validation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -84,7 +84,7 @@ jobs:
     name: Model artifact integrity
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Verify shipped models match models/version.json
         run: |
