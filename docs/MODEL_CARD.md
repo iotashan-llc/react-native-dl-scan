@@ -26,7 +26,7 @@ For the architectural decision that dropped the doc detector see [ARCHITECTURE_D
 | Export formats | LiteRT / TFLite via [litert-torch](https://github.com/google-ai-edge/ai-edge-torch) (fp32 default; a dynamic-int8 variant exists but is not shipped) |
 | License (code) | MIT |
 | License (model weights) | Apache 2.0 (see [License](#license) section) |
-| Contact | Shannon Hicks — https://github.com/iotashan/react-native-dl-scan |
+| Contact | Shannon Hicks — https://github.com/iotashan-llc/react-native-dl-scan |
 
 ### Trained sub-model summary
 
@@ -234,7 +234,7 @@ and this repository.
   title   = {react-native-dl-scan: On-Device Driver's License Scanning for React Native},
   author  = {Hicks, Shannon},
   year    = {2025},
-  url     = {https://github.com/iotashan/react-native-dl-scan},
+  url     = {https://github.com/iotashan-llc/react-native-dl-scan},
   license = {MIT}
 }
 ```

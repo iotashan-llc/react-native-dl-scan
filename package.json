@@ -58,14 +58,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iotashan/react-native-dl-scan.git"
+    "url": "git+https://github.com/iotashan-llc/react-native-dl-scan.git"
   },
   "author": "Shannon Hicks <shan@iotashan.com> (https://github.com/iotashan)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iotashan/react-native-dl-scan/issues"
+    "url": "https://github.com/iotashan-llc/react-native-dl-scan/issues"
   },
-  "homepage": "https://github.com/iotashan/react-native-dl-scan#readme",
+  "homepage": "https://github.com/iotashan-llc/react-native-dl-scan#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -113,7 +113,9 @@
   },
   "resolutions": {
     "fast-uri": "^3.1.2",
-    "shell-quote": "^1.8.4"
+    "shell-quote": "^1.8.4",
+    "ws@^7": "^7.5.11",
+    "ws@^7.5.10": "^7.5.11"
   },
   "packageManager": "yarn@3.6.1",
   "prettier": {

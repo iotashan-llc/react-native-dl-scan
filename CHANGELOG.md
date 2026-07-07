@@ -195,5 +195,5 @@ the repo before this release, treat `0.2.0` as the start of the public history.
   verification service and has not been evaluated against KYC/AML compliance
   requirements.
 
-[Unreleased]: https://github.com/iotashan/react-native-dl-scan/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/iotashan/react-native-dl-scan/releases/tag/v0.2.0
+[Unreleased]: https://github.com/iotashan-llc/react-native-dl-scan/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/iotashan-llc/react-native-dl-scan/releases/tag/v0.2.0

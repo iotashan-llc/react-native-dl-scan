@@ -3,7 +3,7 @@
 Scan US and Canadian driver's licenses in React Native — iOS and Android — powered by a shared C++17 AAMVA parsing core and exposed as a [Nitro Modules](https://github.com/mrousavy/nitro) HybridObject.
 
 [![npm version](https://img.shields.io/npm/v/react-native-dl-scan.svg)](https://www.npmjs.com/package/react-native-dl-scan)
-[![CI](https://github.com/iotashan/react-native-dl-scan/actions/workflows/ci.yml/badge.svg)](https://github.com/iotashan/react-native-dl-scan/actions/workflows/ci.yml)
+[![CI](https://github.com/iotashan-llc/react-native-dl-scan/actions/workflows/ci.yml/badge.svg)](https://github.com/iotashan-llc/react-native-dl-scan/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## About this project
@@ -135,7 +135,7 @@ yarn add react-native-dl-scan
 
 1. Open your project in Xcode.
 2. **File → Add Package Dependencies…**
-3. Enter `https://github.com/iotashan/react-native-dl-scan` and resolve the version.
+3. Enter `https://github.com/iotashan-llc/react-native-dl-scan` and resolve the version.
 4. Build.
 
 Alternatively, the package is added automatically through your app workspace's `Package.resolved` once you reference it in your React Native project.
@@ -629,8 +629,8 @@ Full documentation:
 ## Future Direction
 
 - Runtime fuzzy field-matching (Levenshtein + per-field dictionaries) inside the C++ extractor to absorb common platform-OCR substitution errors at parse time.
-- Surfacing the cropped + oriented DL image and the detected headshot region to JS — see issues [#92](https://github.com/iotashan/react-native-dl-scan/issues/92) and [#93](https://github.com/iotashan/react-native-dl-scan/issues/93).
-- Scanner config knobs (votingFrames, cameraRotation hint, MRZ fallback path) — see the [open issues](https://github.com/iotashan/react-native-dl-scan/issues).
+- Surfacing the cropped + oriented DL image and the detected headshot region to JS — see issues [#92](https://github.com/iotashan-llc/react-native-dl-scan/issues/92) and [#93](https://github.com/iotashan-llc/react-native-dl-scan/issues/93).
+- Scanner config knobs (votingFrames, cameraRotation hint, MRZ fallback path) — see the [open issues](https://github.com/iotashan-llc/react-native-dl-scan/issues).
 
 ## Privacy & compliance
 
