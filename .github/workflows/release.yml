@@ -1,0 +1,53 @@
+name: Release
+
+# Publishes the package to npm when a GitHub Release is published.
+# Flow: bump the version + finalize the CHANGELOG on main, then create a
+# GitHub Release with tag `vX.Y.Z`. This workflow builds and publishes that
+# tag to npm with build provenance.
+#
+# Requires the `NPM_TOKEN` repository secret (an npm automation/granular token
+# with publish rights to `react-native-dl-scan`). Provenance needs the
+# `id-token: write` permission below and a public repo.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write # npm provenance attestation
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'yarn'
+
+      - run: corepack enable
+      - run: yarn install --immutable
+
+      # Build lib/ (bob) so the published tarball matches `files`.
+      - run: yarn prepare
+
+      # Guard: the git tag must match package.json version, so a Release for
+      # v1.0.0 can never publish a mismatched package.
+      - name: Verify tag matches package version
+        run: |
+          PKG_VERSION="v$(node -p "require('./package.json').version")"
+          if [ "$PKG_VERSION" != "${GITHUB_REF_NAME}" ]; then
+            echo "tag ${GITHUB_REF_NAME} != package.json ${PKG_VERSION}"
+            exit 1
+          fi
+          echo "publishing ${PKG_VERSION}"
+
+      # lib/ is already built above; skip the redundant prepare rebuild.
+      - run: npm publish --provenance --access public --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
