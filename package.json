@@ -1,6 +1,6 @@
 {
   "name": "react-native-dl-scan",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "React Native module for scanning US driver's licenses via PDF417 barcode and OCR",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -31,6 +31,7 @@
     "!**/.*",
     "models",
     "docs",
+    "!docs/superpowers",
     "Package.swift",
     "!cpp/tests",
     "!cpp/eval",
