@@ -8074,7 +8074,7 @@ __metadata:
     react-native: 0.81.5
     react-native-builder-bob: ^0.40.12
     react-native-fast-tflite: ^3.0.0
-    react-native-nitro-image: ^0.14.0
+    react-native-nitro-image: ^0.15.1
     react-native-nitro-modules: ^0.36.1
     react-native-vision-camera: ^5.0.11
     react-native-vision-camera-barcode-scanner: ^5.0.11
@@ -8086,7 +8086,7 @@ __metadata:
     react: ">=18.0.0"
     react-native: ">=0.79.0"
     react-native-fast-tflite: ^3.0.0
-    react-native-nitro-image: ^0.14.0
+    react-native-nitro-image: ^0.15.1
     react-native-nitro-modules: ^0.36.1
     react-native-vision-camera: ^5.0.11
     react-native-vision-camera-barcode-scanner: ^5.0.11
@@ -8116,14 +8116,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-nitro-image@npm:^0.14.0":
-  version: 0.14.0
-  resolution: "react-native-nitro-image@npm:0.14.0"
+"react-native-nitro-image@npm:^0.15.1":
+  version: 0.15.1
+  resolution: "react-native-nitro-image@npm:0.15.1"
   peerDependencies:
     react: "*"
     react-native: "*"
     react-native-nitro-modules: "*"
-  checksum: ea5d19665bdffc8bb38fd5fef78a7d9c5f3f033cf0e0b6c224a39f718b863f3de74d776765eb7f5440743e985e2ea6c9ab210a1545947b0dcf02570408af5877
+  checksum: c8ce8850b3386a768292a89d27e9c481ca80465eb777f91e30afce5fc43976c76ffaffd24704986ec749617065461a3cfa068476e50caa60450b089429785e58
   languageName: node
   linkType: hard
 
