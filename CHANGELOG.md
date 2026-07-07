@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-07-06
+
+First public release. The library is published to npm and the source is public.
+
 ### Changed
 
 - **Field detector: YOLOv8n -> NanoDet-Plus-m.** The front-of-card field detector
@@ -195,5 +199,6 @@ the repo before this release, treat `0.2.0` as the start of the public history.
   verification service and has not been evaluated against KYC/AML compliance
   requirements.
 
-[Unreleased]: https://github.com/iotashan-llc/react-native-dl-scan/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/iotashan-llc/react-native-dl-scan/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/iotashan-llc/react-native-dl-scan/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/iotashan-llc/react-native-dl-scan/releases/tag/v0.2.0
