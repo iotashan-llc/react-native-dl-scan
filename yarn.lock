@@ -909,6 +909,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-transform-class-properties@npm:^7.27.1":
+  version: 7.29.7
+  resolution: "@babel/plugin-transform-class-properties@npm:7.29.7"
+  dependencies:
+    "@babel/helper-create-class-features-plugin": ^7.29.7
+    "@babel/helper-plugin-utils": ^7.29.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 0cc5e7a882e29eead360f02ef79f6b2ec3b3813213b1513d8fdaa931d1d1361fccc92fbacc9b399e42495953d9d6fc722f283b5f3aa272fe016a0b5fe1e6a130
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-transform-class-static-block@npm:^7.28.6":
   version: 7.28.6
   resolution: "@babel/plugin-transform-class-static-block@npm:7.28.6"
@@ -934,6 +946,22 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: bddeefbfd1966272e5da6a0844d68369a0f43c286816c8b379dfd576cf835b8bc652089ef337b0334ff3ae6c9652d56d8332b78a7d29176534265c39856e4822
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-transform-classes@npm:^7.28.4":
+  version: 7.29.7
+  resolution: "@babel/plugin-transform-classes@npm:7.29.7"
+  dependencies:
+    "@babel/helper-annotate-as-pure": ^7.29.7
+    "@babel/helper-compilation-targets": ^7.29.7
+    "@babel/helper-globals": ^7.29.7
+    "@babel/helper-plugin-utils": ^7.29.7
+    "@babel/helper-replace-supers": ^7.29.7
+    "@babel/traverse": ^7.29.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: cc45ff5b5b063339131cd701266af90506db8640e56494de0c78f882da6317f057951bf6507c5b48a0278cf5dad21691baf2af05e24b8c26b0725d677088edbf
   languageName: node
   linkType: hard
 
@@ -1215,6 +1243,17 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 1cdd3ca48a8fffa13dbb9949748d3dd2183cf24110cd55d702da4549205611fc12978b49886be809ec1929ff6304ac4eecc747a33dca2484f9dc655928ab5a89
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-transform-nullish-coalescing-operator@npm:^7.27.1":
+  version: 7.29.7
+  resolution: "@babel/plugin-transform-nullish-coalescing-operator@npm:7.29.7"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.29.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: f486e737ddcec3a88e2e0dc004c28e15156dd255f3b2d944903f3d75666257c96ee7ebf57d80d2cf42eda2bee497db8134a26d657ddc3defcc34b9583ecbd119
   languageName: node
   linkType: hard
 
@@ -1716,7 +1755,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-typescript@npm:^7.28.5":
+"@babel/preset-typescript@npm:^7.27.1":
   version: 7.29.7
   resolution: "@babel/preset-typescript@npm:7.29.7"
   dependencies:
@@ -8079,7 +8118,7 @@ __metadata:
     react-native-vision-camera: ^5.0.11
     react-native-vision-camera-barcode-scanner: ^5.0.11
     react-native-vision-camera-worklets: ^5.0.11
-    react-native-worklets: ^0.10.2
+    react-native-worklets: ^0.8.3
     ts-jest: ^29.3.2
     typescript: ^6.0.3
   peerDependencies:
@@ -8091,7 +8130,7 @@ __metadata:
     react-native-vision-camera: ^5.0.11
     react-native-vision-camera-barcode-scanner: ^5.0.11
     react-native-vision-camera-worklets: ^5.0.11
-    react-native-worklets: ^0.10.2
+    react-native-worklets: ">=0.8.3"
   languageName: unknown
   linkType: soft
 
@@ -8184,28 +8223,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-worklets@npm:^0.10.2":
-  version: 0.10.2
-  resolution: "react-native-worklets@npm:0.10.2"
+"react-native-worklets@npm:^0.8.3":
+  version: 0.8.3
+  resolution: "react-native-worklets@npm:0.8.3"
   dependencies:
     "@babel/plugin-transform-arrow-functions": ^7.27.1
-    "@babel/plugin-transform-class-properties": ^7.28.6
-    "@babel/plugin-transform-classes": ^7.28.6
-    "@babel/plugin-transform-nullish-coalescing-operator": ^7.28.6
-    "@babel/plugin-transform-optional-chaining": ^7.28.6
+    "@babel/plugin-transform-class-properties": ^7.27.1
+    "@babel/plugin-transform-classes": ^7.28.4
+    "@babel/plugin-transform-nullish-coalescing-operator": ^7.27.1
+    "@babel/plugin-transform-optional-chaining": ^7.27.1
     "@babel/plugin-transform-shorthand-properties": ^7.27.1
     "@babel/plugin-transform-template-literals": ^7.27.1
     "@babel/plugin-transform-unicode-regex": ^7.27.1
-    "@babel/preset-typescript": ^7.28.5
-    "@babel/types": ^7.27.1
+    "@babel/preset-typescript": ^7.27.1
     convert-source-map: ^2.0.0
-    semver: ^7.7.4
+    semver: ^7.7.3
   peerDependencies:
     "@babel/core": "*"
     "@react-native/metro-config": "*"
     react: "*"
-    react-native: 0.83 - 0.86
-  checksum: 9950e9e72e323ce85fb9b1863f08d9cf8adfb4babb3dcf27579ad9586118c8e7904d9f8fa209352dfb8a8a9cbbf5f1caa5e671f356c9d34950f4a1ae5d652671
+    react-native: 0.81 - 0.85
+  checksum: a44e50fc0ec765612df3f6b6104444d28e94634f3642b689df2638c5c9187ddadd7069953bb9d9a68ca253422e6630db36ffcfee80eea5f71f73cc99539307fd
   languageName: node
   linkType: hard
 
@@ -8548,7 +8586,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.5.2":
+"semver@npm:^7.5.2, semver@npm:^7.7.3":
   version: 7.8.5
   resolution: "semver@npm:7.8.5"
   bin:
