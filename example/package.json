@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",
-    "expo": "~57.0.2",
+    "expo": "~57.0.4",
     "expo-blur": "~57.0.0",
     "expo-build-properties": "~57.0.3",
     "expo-device": "~57.0.0",
@@ -25,23 +25,23 @@
     "expo-splash-screen": "~57.0.2",
     "expo-status-bar": "~57.0.0",
     "expo-system-ui": "~57.0.0",
-    "react": "19.1.0",
-    "react-native": "0.81.5",
+    "react": "19.2.3",
+    "react-native": "0.86.0",
     "react-native-dl-scan": "portal:..",
     "react-native-fast-tflite": "^3.0.0",
     "react-native-nitro-image": "^0.14.0",
     "react-native-nitro-modules": "^0.35.0",
-    "react-native-reanimated": "~4.1.1",
+    "react-native-reanimated": "4.5.0",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-svg": "15.15.4",
     "react-native-vision-camera": "5.0.11",
     "react-native-vision-camera-barcode-scanner": "5.0.11",
     "react-native-vision-camera-worklets": "5.1.0",
-    "react-native-worklets": "^0.8.3"
+    "react-native-worklets": "0.10.0"
   },
   "devDependencies": {
-    "@types/react": "~19.1.0",
-    "typescript": "~5.9.2"
+    "@types/react": "~19.2.4",
+    "typescript": "~6.0.3"
   },
   "resolutions": {
     "postcss": "^8.5.10",
@@ -56,16 +56,6 @@
           "react-native-vision-camera-barcode-scanner"
         ]
       }
-    },
-    "install": {
-      "exclude": [
-        "react",
-        "react-native",
-        "react-native-reanimated",
-        "react-native-worklets",
-        "@types/react",
-        "typescript"
-      ]
     },
     "doctor": {
       "reactNativeDirectoryCheck": {

@@ -130,19 +130,28 @@ export function PhonePortraitShell({
         />
       </View>
       <View style={styles.flipCardWrap}>
-        {/* review P2 (Phase F-G review): Android's hardware-accelerated
-         *  rotateY can flicker the native Camera preview surface
-         *  mid-rotation. We pause Camera frame output via the
-         *  conditional outputs={[]} above, but the preview SURFACE
-         *  stays live inside the rotated face. Slide-mode on Android
-         *  sidesteps the 3D compositor entirely; iOS keeps the flip
-         *  metaphor where it composites cleanly. */}
-        <FlipCard
-          flipped={phase === 'result'}
-          front={front}
-          back={back}
-          mode={Platform.OS === 'android' ? 'slide' : 'flip'}
-        />
+        {/* Android: FlipCard's `position:'absolute'` face wrapper
+         *  (needed for both the 3D flip and the slide-crossfade
+         *  fallback) breaks the flex:1 layout of the camera-containing
+         *  front face on this RN/Fabric build — the Camera collapses
+         *  to zero height regardless of whether the wrapper is
+         *  Reanimated-driven or a plain static View (verified: a bare
+         *  static `<View style={StyleSheet.absoluteFillObject}>`
+         *  reproduces the same collapse). Root cause is the
+         *  absolute-positioned-ancestor + flex:1-descendant chain
+         *  itself, not the animation. Skip FlipCard on Android
+         *  entirely and swap faces as plain flex children — no
+         *  transition animation, but the camera renders correctly.
+         *  iOS's 3D rotateY composites fine and is unaffected. */}
+        {Platform.OS === 'android' ? (
+          phase === 'result' ? (
+            back
+          ) : (
+            front
+          )
+        ) : (
+          <FlipCard flipped={phase === 'result'} front={front} back={back} />
+        )}
       </View>
       {scanner.error != null && (
         <Text style={[styles.errorText, { color: '#ef4444' }]}>

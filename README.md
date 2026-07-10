@@ -48,6 +48,204 @@ function ScanScreen() {
 
 > **Note:** `outputs={[output]}` is the Vision Camera v5 plural array prop. The v4 `output={...}` single-prop idiom is not supported.
 
+## Examples
+
+### Barcode-only scan, detailed console log
+
+Reads the back of the license and logs a human-readable breakdown — not
+just `console.log(licenseData)`.
+
+```tsx
+import { useEffect } from 'react';
+import { Camera, useCameraDevice } from 'react-native-vision-camera';
+import { useLicenseScanner, formatTypedValue } from 'react-native-dl-scan';
+import type { LicenseData } from 'react-native-dl-scan';
+
+function logScanResult(data: LicenseData) {
+  const name = [data.firstName, data.middleName, data.lastName]
+    .filter(Boolean)
+    .join(' ');
+  console.log('=== License scan result ===');
+  console.log(`Name:          ${name || '(not read)'}`);
+  console.log(`DOB:           ${data.dateOfBirth ?? '(not read)'}`);
+  console.log(`License #:     ${data.licenseNumber ?? '(not read)'}`);
+  console.log(
+    `Address:       ${data.street ?? ''}, ${data.city ?? ''}, ${data.state ?? ''} ${data.postalCode ?? ''}`
+  );
+  console.log(`Sex:           ${formatTypedValue(data.sex) ?? '(not read)'}`);
+  console.log(
+    `Eyes / Hair:   ${formatTypedValue(data.eyeColor) ?? '?'} / ${formatTypedValue(data.hairColor) ?? '?'}`
+  );
+  console.log(
+    `Height / Wt:   ${data.height ?? '?'} / ${data.weight ?? '?'}`
+  );
+  console.log(
+    `Class / Rstr / Endorse: ${data.vehicleClass ?? '?'} / ${data.restrictions ?? 'none'} / ${data.endorsements ?? 'none'}`
+  );
+  console.log(
+    `Issued / Exp:  ${data.issueDate ?? '?'} / ${data.expirationDate ?? '?'}`
+  );
+  console.log(`AAMVA version: ${data.aamvaVersion ?? '?'}`);
+
+  if (data.dataConfidence) {
+    console.log('--- Per-field confidence ---');
+    for (const [field, entry] of Object.entries(data.dataConfidence)) {
+      console.log(`  ${field.padEnd(16)} ${entry.tier.padEnd(16)} ${entry.score.toFixed(2)}`);
+    }
+  }
+}
+
+function BackScanScreen() {
+  const device = useCameraDevice('back');
+  const { licenseData, error, isScanning, output, reset } = useLicenseScanner('barcode');
+
+  useEffect(() => {
+    if (licenseData) logScanResult(licenseData);
+  }, [licenseData]);
+
+  useEffect(() => {
+    if (error) console.warn('[dl-scan] scan error:', error);
+  }, [error]);
+
+  if (!device) return null;
+
+  return (
+    <Camera
+      device={device}
+      isActive={isScanning}
+      outputs={[output]}
+      style={{ flex: 1 }}
+    />
+  );
+}
+```
+
+### Back scan (data) + front capture (images)
+
+Scan 1 reads the barcode for the data fields. Scan 2 switches to OCR mode
+in `capture: 'imagesOnly'` to save just the rectified card image and the
+headshot crop — no OCR/parse/voting runs for the front, so it's fast. This
+assumes `expo-file-system` is already imported and camera permissions are
+already granted.
+
+```tsx
+import { useEffect, useState } from 'react';
+import { Camera, useCameraDevice } from 'react-native-vision-camera';
+import { useLicenseScanner } from 'react-native-dl-scan';
+import type { LicenseData } from 'react-native-dl-scan';
+import * as FileSystem from 'expo-file-system/legacy';
+
+// Field-detector model — required for any 'ocr' mode scan.
+const OCR_MODELS = {
+  field: require('./assets/nanodet_field_416.tflite') as number,
+};
+
+async function saveFrontImages(data: LicenseData, sessionId: string) {
+  const dir = `${FileSystem.documentDirectory}dl-scans/${sessionId}/`;
+  await FileSystem.makeDirectoryAsync(dir, { intermediates: true });
+
+  if (data.cardImagePath) {
+    await FileSystem.copyAsync({ from: data.cardImagePath, to: `${dir}card.jpg` });
+  }
+  if (data.headshotImagePath) {
+    await FileSystem.copyAsync({ from: data.headshotImagePath, to: `${dir}headshot.jpg` });
+  }
+  console.log('[dl-scan] front images saved to', dir);
+}
+
+function TwoStageScanScreen() {
+  const device = useCameraDevice('back');
+  const [stage, setStage] = useState<'back' | 'front' | 'done'>('back');
+
+  // Stage 1 — barcode carries the data.
+  const backScan = useLicenseScanner('barcode');
+  // Stage 2 — images only: just the card crop + headshot, no OCR/parse.
+  const frontCapture = useLicenseScanner('ocr', OCR_MODELS, {
+    capture: 'imagesOnly',
+  });
+
+  // Barcode read -> switch the Camera's output to the front-capture scan.
+  useEffect(() => {
+    if (stage === 'back' && backScan.licenseData) {
+      setStage('front');
+    }
+  }, [stage, backScan.licenseData]);
+
+  // Card image saved -> copy both images out of the app's private cache.
+  useEffect(() => {
+    const front = frontCapture.licenseData;
+    if (stage === 'front' && front?.cardImagePath && backScan.licenseData) {
+      saveFrontImages(front, backScan.licenseData.licenseNumber ?? 'scan').then(() =>
+        setStage('done')
+      );
+    }
+  }, [stage, frontCapture.licenseData, backScan.licenseData]);
+
+  if (!device) return null;
+
+  const output = stage === 'front' ? frontCapture.output : backScan.output;
+  return (
+    <Camera
+      device={device}
+      isActive={stage !== 'done'}
+      outputs={[output]}
+      style={{ flex: 1 }}
+    />
+  );
+}
+```
+
+### Front-only capture (images, no barcode)
+
+Same images-only pattern as above, but standalone — useful when the back
+of the card isn't available (a photo-only kiosk flow, no PDF417 read).
+
+```tsx
+import { useEffect } from 'react';
+import { Camera, useCameraDevice } from 'react-native-vision-camera';
+import { useLicenseScanner } from 'react-native-dl-scan';
+import * as FileSystem from 'expo-file-system/legacy';
+
+const OCR_MODELS = { field: require('./assets/nanodet_field_416.tflite') as number };
+
+function FrontOnlyCaptureScreen() {
+  const device = useCameraDevice('back');
+  const { licenseData, isScanning, output } = useLicenseScanner('ocr', OCR_MODELS, {
+    capture: 'imagesOnly',
+  });
+
+  useEffect(() => {
+    if (!licenseData?.cardImagePath) return;
+
+    (async () => {
+      const dir = `${FileSystem.documentDirectory}dl-scans/${Date.now()}/`;
+      await FileSystem.makeDirectoryAsync(dir, { intermediates: true });
+      await FileSystem.copyAsync({ from: licenseData.cardImagePath!, to: `${dir}card.jpg` });
+      if (licenseData.headshotImagePath) {
+        await FileSystem.copyAsync({
+          from: licenseData.headshotImagePath,
+          to: `${dir}headshot.jpg`,
+        });
+      }
+      console.log('[dl-scan] saved to', dir);
+    })();
+  }, [licenseData]);
+
+  if (!device) return null;
+
+  return (
+    <Camera
+      device={device}
+      isActive={isScanning}
+      outputs={[output]}
+      style={{ flex: 1 }}
+    />
+  );
+}
+```
+
+---
+
 ## Features
 
 - **PDF417 barcode scanning** (back of license) via Vision Camera v5's built-in object output on iOS (AVFoundation `AVCaptureMetadataOutput` — pure Apple stack, no MLKit, simulator-friendly) and `react-native-vision-camera-barcode-scanner` on Android (Google MLKit Barcode). Up to 30 fps on both.
@@ -245,6 +443,24 @@ useLicenseScanner(
 )
 ```
 
+```ts
+export interface OcrModelSources {
+  /**
+   * NanoDet field-detector .tflite model. REQUIRED in 'ocr' mode — there is
+   * no native field-detection fallback. Pass a STABLE reference (a
+   * module-level const): the hook reloads the model whenever this object's
+   * identity changes.
+   */
+  field: ModelSource; // from react-native-fast-tflite; require('...tflite') or { url }
+  /** Reserved for a future JS doc-segmentation path. Currently unused. */
+  docAligner?: ModelSource;
+  /** Hardware delegates, e.g. ['core-ml'] (iOS ANE) or ['android-gpu']/['nnapi']. Omit for CPU. */
+  delegates?: TensorflowModelDelegate[];
+}
+```
+
+In `'barcode'` mode, `ocrModelSources` is ignored — only pass it (and the `.tflite` Metro config) if you use `'ocr'` mode.
+
 React hook for camera-based scanning. Returns:
 
 | Property | Type | Description |
@@ -254,6 +470,8 @@ React hook for camera-based scanning. Returns:
 | `isScanning` | `boolean` | `true` while actively scanning |
 | `progress` | `number` | `0..1`. In OCR mode, the fraction of `requiredFields` read so far (`1` when finished). |
 | `scanStatus` | `ScanStatus` | Live, UI-observable snapshot of the multi-frame scan (pass number, which required fields are in vs. pending, validation phase, per-field confidence). See [Scan completion](#scan-completion-ocr-mode). |
+| `pipelineStage` | `number` | Native pipeline step, live-updated: `0` idle, `1` extracting fields, `2` normalizing data, `3` saving card image, `4` detecting face, `5` done. Useful for a fine-grained progress indicator. |
+| `detectedCorners` | `number[]` | 8 floats `[x0,y0,x1,y1,x2,y2,x3,y3]`, normalized `[0,1]`, describing the detected card's quad in the current frame. Empty array when no card is detected. |
 | `output` | `CameraOutput` | Pass to `<Camera outputs={[output]} />`. Internally resolved per mode and per platform — barcode mode uses AVFoundation `useObjectOutput` on iOS and `react-native-vision-camera-barcode-scanner` on Android; OCR mode is a worklet frame processor on both. |
 | `reset` | `() => void` | Clear `licenseData` / `error` / accumulated result and restart scanning |
 
