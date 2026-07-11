@@ -1,34 +1,56 @@
 name: Release
 
-# Publishes the package to npm when a GitHub Release is published.
-# Flow: bump the version + finalize the CHANGELOG on main, then create a
-# GitHub Release with tag `vX.Y.Z`. This workflow builds and publishes that
-# tag to npm with build provenance.
+# Stages an npm publish when a GitHub Release is published (or manually via
+# workflow_dispatch). Flow: bump the version + finalize the CHANGELOG on main,
+# create a GitHub Release with tag `vX.Y.Z` → this workflow (gated by the
+# `release` environment's required-reviewer approval) runs `npm stage publish`
+# via the npm Trusted Publisher (OIDC — no long-lived token, provenance
+# attached automatically). The staged version is NOT public until a maintainer
+# approves it with 2FA:
 #
-# Requires the `NPM_TOKEN` repository secret (an npm automation/granular token
-# with publish rights to `react-native-dl-scan`). Provenance needs the
-# `id-token: write` permission below and a public repo.
+#   npm stage list react-native-dl-scan
+#   npm stage approve <stage-id>
+#
+# Trust configuration lives on npmjs.com → package → Settings → Trusted
+# Publisher (org iotashan-llc, repo react-native-dl-scan, workflow
+# release.yml, environment `release`, allowed action: npm stage publish).
+#
+# NOTE: staged publishing cannot create a brand-new package — the first-ever
+# publish of this package was a regular manual `npm publish` from a
+# maintainer's machine.
 
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to stage (e.g. v1.0.1); must exist'
+        required: true
+        type: string
 
 permissions:
   contents: read
-  id-token: write # npm provenance attestation
+  id-token: write # npm trusted publishing (OIDC) + provenance
 
 jobs:
   publish:
-    name: Publish to npm
+    name: Stage npm publish
     runs-on: ubuntu-latest
+    environment: release # required-reviewer gate; also encoded in the npm trust policy
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
 
       - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
           cache: 'yarn'
+
+      # Staged publishing + trusted publishing need npm >= 11.15.0.
+      - run: npm install -g npm@latest && npm --version
 
       - run: corepack enable
       - run: yarn install --immutable
@@ -36,18 +58,18 @@ jobs:
       # Build lib/ (bob) so the published tarball matches `files`.
       - run: yarn prepare
 
-      # Guard: the git tag must match package.json version, so a Release for
-      # v1.0.0 can never publish a mismatched package.
+      # Guard: the tag being released must match package.json version, so a
+      # Release for v1.0.1 can never stage a mismatched package.
       - name: Verify tag matches package version
         run: |
           PKG_VERSION="v$(node -p "require('./package.json').version")"
-          if [ "$PKG_VERSION" != "${GITHUB_REF_NAME}" ]; then
-            echo "tag ${GITHUB_REF_NAME} != package.json ${PKG_VERSION}"
+          TAG="${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}"
+          if [ "$PKG_VERSION" != "$TAG" ]; then
+            echo "tag $TAG != package.json $PKG_VERSION"
             exit 1
           fi
-          echo "publishing ${PKG_VERSION}"
+          echo "staging $PKG_VERSION"
 
       # lib/ is already built above; skip the redundant prepare rebuild.
-      - run: npm publish --provenance --access public --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Auth + provenance come from the trusted-publisher OIDC exchange.
+      - run: npm stage publish --ignore-scripts
