@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-07-11
+
+### Changed
+
+- **npm releases now use Trusted Publishing (OIDC) with staged publishes.** CI
+  runs `npm stage publish` behind the GitHub `release` environment; a
+  maintainer then reviews and approves the staged version with 2FA
+  (`npm stage approve`). No long-lived npm token secrets remain in the
+  repository configuration.
+- `publishConfig` now requires provenance attestation and public access.
+
 ## [1.0.0] - 2026-07-06
 
 First public release. The library is published to npm and the source is public.
@@ -199,6 +210,7 @@ the repo before this release, treat `0.2.0` as the start of the public history.
   verification service and has not been evaluated against KYC/AML compliance
   requirements.
 
-[Unreleased]: https://github.com/iotashan-llc/react-native-dl-scan/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/iotashan-llc/react-native-dl-scan/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/iotashan-llc/react-native-dl-scan/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/iotashan-llc/react-native-dl-scan/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/iotashan-llc/react-native-dl-scan/releases/tag/v0.2.0
