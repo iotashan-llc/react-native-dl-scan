@@ -69,7 +69,9 @@
   },
   "homepage": "https://github.com/iotashan-llc/react-native-dl-scan#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "provenance": true
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.0",
