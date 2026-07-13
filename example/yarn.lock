@@ -2887,7 +2887,7 @@ __metadata:
     react-native-dl-scan: "portal:.."
     react-native-fast-tflite: ^3.0.0
     react-native-nitro-image: ^0.14.0
-    react-native-nitro-modules: ^0.35.0
+    react-native-nitro-modules: ^0.36.1
     react-native-reanimated: 4.5.0
     react-native-safe-area-context: ~5.7.0
     react-native-svg: 15.15.4
@@ -4532,13 +4532,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-nitro-modules@npm:^0.35.0":
-  version: 0.35.6
-  resolution: "react-native-nitro-modules@npm:0.35.6"
+"react-native-nitro-modules@npm:^0.36.1":
+  version: 0.36.1
+  resolution: "react-native-nitro-modules@npm:0.36.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: b057dc606c4717bff2447cff3efdeebf5cd7342fa11b3f51cfd420ccce1224d0b4be5999ea63c9856721520f1cbb50fba9372109f49a4c8b14202d7ab4d3b37e
+  checksum: f22f81591a1f9bfe53f12616cc4f7abf124eade3f5282e7c79c0d13b8351322bdbe8bae472262945341ade03f5e3e9a9fde27d902363c7d7a3d927bcff96224a
   languageName: node
   linkType: hard
 
