@@ -8187,14 +8187,15 @@ __metadata:
   linkType: hard
 
 "react-native-vision-camera-barcode-scanner@npm:^5.0.11":
-  version: 5.0.11
-  resolution: "react-native-vision-camera-barcode-scanner@npm:5.0.11"
+  version: 5.1.0
+  resolution: "react-native-vision-camera-barcode-scanner@npm:5.1.0"
   peerDependencies:
     react: "*"
     react-native: "*"
+    react-native-nitro-image: "*"
     react-native-nitro-modules: "*"
     react-native-vision-camera: "*"
-  checksum: 4df3c034ef1376a835812f3a036f2a792fcf34dcc400afc434686fc8f5bcf4a402a0ec2d0a73024b61100f9e4ea0fbb86d3978bd1b2f2d90eb1b3c3c13aaf093
+  checksum: 349490a23fcb5abbbcc349f3a9c0ada593fbc580d1bf478e51642efffb81111bc6e275f6339ac23f7c3ba2e8d21a57db8208ee96c914ed9de51d097158141c67
   languageName: node
   linkType: hard
 
