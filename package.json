@@ -116,7 +116,7 @@
     "react-native-worklets": ">=0.8.3"
   },
   "resolutions": {
-    "fast-uri": "^3.1.2",
+    "fast-uri": "^3.1.7",
     "shell-quote": "^1.8.4",
     "ws@^7": "^7.5.11",
     "ws@^7.5.10": "^7.5.11"
